@@ -30,6 +30,12 @@ public class CubeRotation : MonoBehaviour
 
     }
 
+    /**
+    * <summary>
+    * Accelerates the rotation of the object around the rotation point.
+    * </summary>
+    * <param name="direction">The direction of the acceleration. Positive is clockwise, negative is counterclockwise.</param>
+    */
     void Accelerate(float direction)
     {
         if(angularSpeed < maxAngularSpeed)
@@ -39,6 +45,11 @@ public class CubeRotation : MonoBehaviour
         transform.Rotate(Vector3.down, angularSpeed * Time.deltaTime);
     }
 
+    /**
+    * <summary>
+    * Deaccelerates the rotation of the object around the rotation point.
+    * </summary>
+    */
     void deaccelerate()
     {
         if(angularSpeed > 0f)
