@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class CubeRotation : MonoBehaviour
+public class RotationAround : MonoBehaviour
 {
+    public Transform rotationPoint;
     [SerializeField] private float angularAcc = 8f;
     [SerializeField] private float maxAngularSpeed = 50f;
-    [Range(1f, 2f), SerializeField] private float extraAcc = 1.2f;
+    [Range(1f,2f),SerializeField] private float extraAcc = 1.2f;
     private float angularSpeed = 0f;
     // Start is called before the first frame update
     void Start()
@@ -19,7 +19,7 @@ public class CubeRotation : MonoBehaviour
     void Update()
     {
         float horizontalMotion = Input.GetAxis("Horizontal");
-        if(horizontalMotion != 0f)
+        if (horizontalMotion != 0f)
         {
             Accelerate(horizontalMotion);
         }
@@ -27,21 +27,20 @@ public class CubeRotation : MonoBehaviour
         {
             deaccelerate();
         }
-
     }
 
     void Accelerate(float direction)
     {
-        if(angularSpeed < maxAngularSpeed)
+        if (angularSpeed < maxAngularSpeed)
         {
             angularSpeed += direction * angularAcc * Time.deltaTime * extraAcc;
         }
-        transform.Rotate(Vector3.down, angularSpeed * Time.deltaTime);
+        transform.RotateAround(rotationPoint.position, Vector3.up, angularSpeed * Time.deltaTime);
     }
 
     void deaccelerate()
     {
-        if(angularSpeed > 0f)
+        if (angularSpeed > 0f)
         {
             angularSpeed -= angularAcc * Time.deltaTime;
         }
@@ -49,6 +48,6 @@ public class CubeRotation : MonoBehaviour
         {
             angularSpeed += angularAcc * Time.deltaTime;
         }
-        transform.Rotate(Vector3.down, angularSpeed * Time.deltaTime);
+        transform.RotateAround(rotationPoint.position, Vector3.up, angularSpeed * Time.deltaTime);
     }
 }
